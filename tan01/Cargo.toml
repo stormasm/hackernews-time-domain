@@ -16,15 +16,15 @@ edition = "2018"
 
 [dependencies]
 time = "0.1"
-serde = "1.0"
-serde_derive = "1.0"
-serde_json = "1.0"
 clap = "2"
+tantivy = "0.11.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+crossbeam = "0.7"
 
 [[bin]]
 name = "td"
 path = "src/main.rs"
-
 
 [profile.release]
 opt-level = 3
