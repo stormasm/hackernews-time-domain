@@ -20,15 +20,13 @@ fn run_search(directory: &Path, query: &str) -> tantivy::Result<()> {
     let schema = index.schema();
     let default_fields: Vec<Field> = schema
         .fields()
-        .iter()
-        .enumerate()
         .filter(|&(_, ref field_entry)| match *field_entry.field_type() {
             FieldType::Str(ref text_field_options) => {
                 text_field_options.get_indexing_options().is_some()
             }
             _ => false,
         })
-        .map(|(i, _)| Field(i as u32))
+        .map(|(i, _)| i)
         .collect();
     let query_parser = QueryParser::new(schema.clone(), default_fields, index.tokenizers().clone());
     let query = query_parser.parse_query(query)?;
