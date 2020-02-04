@@ -80,11 +80,17 @@ fn main() {
                     .help("Query")
                     .required(true))
         )
+        .subcommand(
+            SubCommand::with_name("create_index")
+                .about("Create a new index. The schema will be populated with a simple example schema")
+                .arg(index_arg.clone())
+        )
         .get_matches();
 
     let (subcommand, some_options) = cli_options.subcommand();
     let options = some_options.unwrap();
     let run_cli = match subcommand {
+        "create_index" => run_create_index_cli,
         "index" => run_index_cli,
         "search" => run_search_cli,
         _ => panic!("Subcommand {} is unknown", subcommand),
