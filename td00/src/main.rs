@@ -45,6 +45,10 @@ fn main() {
         .author("Paul Masurel <paul.masurel@gmail.com>")
         .about("Tantivy Search Engine's command line interface.")
         .subcommand(
+            SubCommand::with_name("create_index")
+                .about("Create a new index. The schema will be populated with a simple example schema")
+        )
+        .subcommand(
             SubCommand::with_name("index")
                 .about("Index files")
                 .arg(index_arg.clone())

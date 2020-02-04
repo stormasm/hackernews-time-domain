@@ -10,17 +10,16 @@ use crossbeam::crossbeam_channel::{unbounded, Receiver};
 use serde::{Deserialize, Serialize};
 */
 
-
+use clap::ArgMatches;
 use std::fs::{create_dir, remove_dir_all};
 use std::path::Path;
 
 //use tantivy::schema::Field;
 use tantivy::schema::*;
-use tantivy::{Index};
+use tantivy::Index;
 
-pub fn run_create_index_cli() -> Result<(), String> {
-    create_index()
-    .map_err(|e| format!("Indexing failed : {:?}", e))
+pub fn run_create_index_cli(_matches: &ArgMatches) -> Result<(), String> {
+    create_index().map_err(|e| format!("Indexing failed : {:?}", e))
 }
 
 fn create_schema() -> Schema {
