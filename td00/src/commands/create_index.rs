@@ -1,20 +1,6 @@
-/*
-use std::env;
-use std::fs::{create_dir, remove_dir_all, File};
-use std::io::{BufRead, BufReader};
-
-use std::process;
-use std::string::String;
-
-use crossbeam::crossbeam_channel::{unbounded, Receiver};
-use serde::{Deserialize, Serialize};
-*/
-
 use clap::ArgMatches;
 use std::fs::{create_dir, remove_dir_all};
 use std::path::Path;
-
-//use tantivy::schema::Field;
 use tantivy::schema::*;
 use tantivy::Index;
 

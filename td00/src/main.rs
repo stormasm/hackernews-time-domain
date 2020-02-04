@@ -8,19 +8,8 @@ extern crate bincode;
 extern crate byteorder;
 extern crate chan;
 extern crate env_logger;
-//extern crate futures;
-
-// extern crate mount;
-//extern crate persistent;
-//extern crate staticfile;
 extern crate tantivy;
 extern crate time;
-//extern crate urlencoded;
-
-/*
-#[macro_use]
-extern crate serde_derive;
-*/
 
 use std::io::Write;
 
