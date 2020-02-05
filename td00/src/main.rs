@@ -63,6 +63,16 @@ fn main() {
                     .help("Do not merge segments"))
         )
         .subcommand(
+            SubCommand::with_name("index_file")
+                .about("Index files")
+                .arg(index_arg.clone())
+                .arg(Arg::with_name("file")
+                    .short("f")
+                    .long("file")
+                    .value_name("file")
+                    .help("File containing the documents to index."))
+        )
+        .subcommand(
             SubCommand::with_name("search")
                 .about("Search an index.")
                 .arg(index_arg.clone())
@@ -86,6 +96,7 @@ fn main() {
         "create_index" => run_create_index_cli,
         "index" => run_index_cli,
         "search" => run_search_cli,
+        "index_file" => run_index_file_cli,
         _ => panic!("Subcommand {} is unknown", subcommand),
     };
 
