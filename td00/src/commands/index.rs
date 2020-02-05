@@ -104,7 +104,7 @@ fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
     Ok(())
 }
 
-pub fn run_index_file_cli(argmatch: &ArgMatches) -> Result<(), String> {
+pub fn run_index_cli(argmatch: &ArgMatches) -> Result<(), String> {
     let pb = PathBuf::from(argmatch.value_of("file").unwrap());
 
     let filename = pb.to_str().unwrap().to_string();

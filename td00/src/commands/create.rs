@@ -5,7 +5,7 @@ use std::path::Path;
 use tantivy::schema::*;
 use tantivy::Index;
 
-pub fn run_create_index_cli(_matches: &ArgMatches) -> Result<(), String> {
+pub fn run_create_cli(_matches: &ArgMatches) -> Result<(), String> {
     create_index().map_err(|e| format!("Indexing failed : {:?}", e))
 }
 
