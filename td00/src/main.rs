@@ -1,32 +1,18 @@
-extern crate ansi_term;
-extern crate bincode;
-extern crate byteorder;
-extern crate chan;
-extern crate clap;
-extern crate env_logger;
-extern crate log;
-extern crate serde_json;
-extern crate tantivy;
-extern crate time;
-
-use std::io::Write;
-
 use clap::{App, AppSettings, Arg, SubCommand};
+use std::io::Write;
 mod commands;
-pub mod timer;
 use self::commands::*;
 
 pub const TANINDEX: &str = "/tmp/tantivy/idxhn";
 
 fn main() {
-    env_logger::init().unwrap();
-
+    //env_logger::init().unwrap();
     let index_arg = Arg::with_name("index")
         .short("i")
         .long("index")
         .value_name("directory")
         .help("Tantivy index directory filepath")
-        .required(true);
+        .required(false);
 
     let cli_options = App::new("Tantivy Hackernews")
         .setting(AppSettings::SubcommandRequiredElseHelp)
@@ -35,12 +21,13 @@ fn main() {
         .about("Tantivy Search for Hackernews.")
         .subcommand(
             SubCommand::with_name("create")
-                .about("Create a new index directory for the hacker news schema"),
+                .about("Create a new index directory for the hacker news schema")
+                .arg(index_arg.clone()),
         )
         .subcommand(
             SubCommand::with_name("index")
                 .about("Index files")
-                //.arg(index_arg.clone())
+                .arg(index_arg.clone())
                 .arg(
                     Arg::with_name("file")
                         .short("f")
@@ -62,13 +49,6 @@ fn main() {
                         .required(true),
                 ),
         )
-        /*
-                .subcommand(
-                    SubCommand::with_name("create")
-                        .about("Create a new index. The schema will be populated with a simple example schema")
-                        //.arg(index_arg.clone())
-                )
-        */
         .get_matches();
 
     let (subcommand, some_options) = cli_options.subcommand();
