@@ -10,6 +10,7 @@ use clap::ArgMatches;
 use crossbeam::crossbeam_channel::{unbounded, Receiver};
 use serde::{Deserialize, Serialize};
 
+use crate::TANINDEX;
 use tantivy::schema::Field;
 use tantivy::schema::*;
 use tantivy::{doc, Index, IndexWriter};
@@ -41,13 +42,13 @@ fn create_schema() -> Schema {
 fn create_index() -> tantivy::Result<Index> {
     let schema = create_schema();
 
-    let check_path = Path::new("/tmp/tantivy/idxbs");
+    let check_path = Path::new(TANINDEX);
     let dir_exists = check_path.exists();
     if dir_exists {
         remove_dir_all(check_path).expect("dir does not exist");
     }
 
-    let index_path = Path::new("/tmp/tantivy/idxbs");
+    let index_path = Path::new(TANINDEX);
     create_dir(index_path).expect("dir already exists");
 
     let index = Index::create_in_dir(&index_path, schema.clone())?;

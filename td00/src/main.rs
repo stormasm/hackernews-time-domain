@@ -18,6 +18,8 @@ mod commands;
 pub mod timer;
 use self::commands::*;
 
+pub const TANINDEX: &str = "/tmp/tantivy/idxhn";
+
 fn main() {
     env_logger::init().unwrap();
 
