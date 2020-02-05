@@ -1,9 +1,8 @@
-use std::env;
 use std::fs::{create_dir, remove_dir_all, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::path::PathBuf;
-use std::process;
+
 use std::string::String;
 
 use clap::ArgMatches;
@@ -113,16 +112,6 @@ pub fn run_index_file_cli(argmatch: &ArgMatches) -> Result<(), String> {
 }
 
 fn index_file(filename: String) -> tantivy::Result<()> {
-    /*
-        let args: Vec<String> = env::args().collect();
-        if args.len() != 2 {
-            println!("You need to enter a filename");
-            process::exit(1);
-        }
-        let filename = &args[1];
-        println!("In file {}", filename);
-    */
     let _contents = read_file_to_buffer(filename.to_string());
-
     Ok(())
 }
