@@ -67,7 +67,7 @@ fn main() {
         .subcommand(
             SubCommand::with_name("index_file")
                 .about("Index files")
-                .arg(index_arg.clone())
+                //.arg(index_arg.clone())
                 .arg(Arg::with_name("file")
                     .short("f")
                     .long("file")
@@ -88,7 +88,7 @@ fn main() {
         .subcommand(
             SubCommand::with_name("create_index")
                 .about("Create a new index. The schema will be populated with a simple example schema")
-                .arg(index_arg.clone())
+                //.arg(index_arg.clone())
         )
         .get_matches();
 
