@@ -1,3 +1,5 @@
+// https://docs.rs/url/2.1.1/url/
+
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::PathBuf;
@@ -15,15 +17,20 @@ struct Item {
     url: String,
 }
 
+fn process_url(url: &str) {
+    println!("{}", url);
+}
+
 fn process_lines(r: Receiver<String>) {
     let item_json = r.recv().unwrap();
 
     let item: Item = serde_json::from_str(&item_json).unwrap();
-    let id = &item.id;
-    let time = &item.time;
+    let _id = &item.id;
+    let _time = &item.time;
     let url = &item.url;
 
-    println!("{} {} {}", id, time, url);
+    process_url(url);
+    // println!("{} {} {}", id, time, url);
 }
 
 fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
