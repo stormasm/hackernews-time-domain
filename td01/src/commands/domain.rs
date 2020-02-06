@@ -10,6 +10,8 @@ use clap::ArgMatches;
 use crossbeam::crossbeam_channel::{unbounded, Receiver};
 use serde::{Deserialize, Serialize};
 
+use url::{Host, Position, Url};
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Item {
     id: u64,
@@ -17,8 +19,14 @@ struct Item {
     url: String,
 }
 
+// fn main() -> Result<(), io::Error> {
+
 fn process_url(url: &str) {
-    println!("{}", url);
+    // println!("{}", url);
+
+    let urlp = Url::parse(url).unwrap();
+
+    println!("{:?}", urlp.host_str());
 }
 
 fn process_lines(r: Receiver<String>) {

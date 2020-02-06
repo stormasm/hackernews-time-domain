@@ -27,6 +27,7 @@ bincode = "0.4"
 byteorder = "0.5"
 chan = "0.1"
 env_logger = "0.3"
+url = "2.1.1"
 
 [[bin]]
 name = "td"
