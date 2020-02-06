@@ -12,6 +12,15 @@ fn main() {
         .author("Michael Angerman <stormasm@gmail.com>")
         .about("Tantivy Search for Hackernews.")
         .subcommand(
+            SubCommand::with_name("domain").about("Index files").arg(
+                Arg::with_name("file")
+                    .short("f")
+                    .long("file")
+                    .value_name("file")
+                    .help("File containing the documents to index."),
+            ),
+        )
+        .subcommand(
             SubCommand::with_name("time").about("Index files").arg(
                 Arg::with_name("file")
                     .short("f")
@@ -25,6 +34,7 @@ fn main() {
     let (subcommand, some_options) = cli_options.subcommand();
     let options = some_options.unwrap();
     let run_cli = match subcommand {
+        "domain" => run_domain_cli,
         "time" => run_time_cli,
         _ => panic!("Subcommand {} is unknown", subcommand),
     };
