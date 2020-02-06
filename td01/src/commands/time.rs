@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 struct Item {
     id: u64,
     time: u64,
+    url: String,
 }
 
 fn process_lines(r: Receiver<String>) {
@@ -20,8 +21,9 @@ fn process_lines(r: Receiver<String>) {
     let item: Item = serde_json::from_str(&item_json).unwrap();
     let id = &item.id;
     let time = &item.time;
+    let url = &item.url;
 
-    println!("{} {}", id, time);
+    println!("{} {} {}", id, time, url);
 }
 
 fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
