@@ -18,7 +18,7 @@ use tantivy::{doc, Index, IndexWriter};
 #[derive(Serialize, Deserialize, Debug)]
 struct Item {
     id: u64,
-    title: String,
+    time: u64,
 }
 
 fn add_my_doc(
@@ -56,34 +56,19 @@ fn create_index() -> tantivy::Result<Index> {
     Ok(index)
 }
 
-fn process_lines(
-    r: Receiver<String>,
-    mut index_writer: &mut IndexWriter,
-    field_id: Field,
-    field_title: Field,
-) {
+fn process_lines(r: Receiver<String>) {
     let item_json = r.recv().unwrap();
 
     let item: Item = serde_json::from_str(&item_json).unwrap();
     let id = &item.id;
-    let title = &item.title;
+    let time = &item.time;
 
-    add_my_doc(&mut index_writer, field_id, field_title, *id, title);
+    // add_my_doc(&mut index_writer, field_id, field_title, *id, title);
 
-    // println!("{} {}", id, title);
+    println!("{} {}", id, time);
 }
 
 fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
-    let index = create_index().unwrap();
-
-    let id: Field = index.schema().get_field("id").unwrap();
-    let title: Field = index.schema().get_field("title").unwrap();
-
-    let mut index_writer = index.writer_with_num_threads(1, 3_000_000)?;
-
-    index_writer.add_document(doc!(title => "The Diary of Muadib", id => 1u64));
-    index_writer.add_document(doc!(title => "A Dairy Cow", id => 10u64));
-
     let f = File::open(filename).unwrap();
     let file = BufReader::new(&f);
 
@@ -97,10 +82,9 @@ fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
 
         // add_my_doc(&mut index_writer, id, title, 123u64, "Rock and Roll");
 
-        process_lines(r, &mut index_writer, id, title);
+        process_lines(r);
     }
 
-    index_writer.commit()?;
     Ok(())
 }
 
