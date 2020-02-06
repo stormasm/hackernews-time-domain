@@ -1,19 +1,12 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-//use std::path::Path;
 use std::path::PathBuf;
-
 use std::string::String;
 
 use clap::ArgMatches;
 
 use crossbeam::crossbeam_channel::{unbounded, Receiver};
 use serde::{Deserialize, Serialize};
-
-//use crate::TANINDEX;
-//use tantivy::schema::Field;
-//use tantivy::schema::*;
-//use tantivy::{doc, Index, IndexWriter};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Item {
@@ -27,8 +20,6 @@ fn process_lines(r: Receiver<String>) {
     let item: Item = serde_json::from_str(&item_json).unwrap();
     let id = &item.id;
     let time = &item.time;
-
-    // add_my_doc(&mut index_writer, field_id, field_title, *id, title);
 
     println!("{} {}", id, time);
 }
@@ -45,8 +36,6 @@ fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
         // Send a message into the channel.
         s.send(l).unwrap();
 
-        // add_my_doc(&mut index_writer, id, title, 123u64, "Rock and Roll");
-
         process_lines(r);
     }
 
@@ -55,7 +44,6 @@ fn read_file_to_buffer(filename: String) -> tantivy::Result<()> {
 
 pub fn run_time_cli(argmatch: &ArgMatches) -> Result<(), String> {
     let pb = PathBuf::from(argmatch.value_of("file").unwrap());
-
     let filename = pb.to_str().unwrap().to_string();
 
     show_time(filename).map_err(|e| format!("Indexing file failed : {:?}", e))
