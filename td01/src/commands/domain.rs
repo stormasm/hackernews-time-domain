@@ -19,13 +19,8 @@ struct Item {
     url: String,
 }
 
-// fn main() -> Result<(), io::Error> {
-
 fn process_url(url: &str) {
-    // println!("{}", url);
-
     let urlp = Url::parse(url).unwrap();
-
     println!("{:?}", urlp.host_str());
 }
 
