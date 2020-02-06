@@ -10,7 +10,7 @@ use clap::ArgMatches;
 use crossbeam::crossbeam_channel::{unbounded, Receiver};
 use serde::{Deserialize, Serialize};
 
-use url::{Host, Position, Url};
+use url::{Url};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Item {
