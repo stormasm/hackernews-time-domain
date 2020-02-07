@@ -10,6 +10,8 @@ use clap::ArgMatches;
 use crossbeam::crossbeam_channel::{unbounded, Receiver};
 use serde::{Deserialize, Serialize};
 
+use chrono::{TimeZone, Utc};
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Item {
     id: u64,
@@ -17,8 +19,10 @@ struct Item {
     url: String,
 }
 
-fn process_time(time: &u64) {
-    println!("{}", time);
+fn process_time(utime: &u64) {
+    let itime = *utime as i64;
+    let dt = Utc.timestamp(itime, 0);
+    println!("{} {}", utime, dt);
 }
 
 fn process_lines(r: Receiver<String>) {
