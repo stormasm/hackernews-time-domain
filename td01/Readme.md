@@ -1,4 +1,8 @@
 
 ```
-cr time --file /tmp13/hackernews-time-domain/data/story-time-100.json 
+cr time --file ./../data/story-time-100.json
+```
+
+```
+cr domain --file ./../data/story-time-100.json
 ```
